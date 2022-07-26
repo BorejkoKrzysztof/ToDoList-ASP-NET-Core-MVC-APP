@@ -1,0 +1,64 @@
+﻿@inject ToDoListInfrastructure.Models.ProgressStatusFormatingService FormatStatus
+@inject ToDoListInfrastructure.Models.DateFormattingService DateFormatting
+
+<div class="cards-wrapper">
+
+    @if (Model.ToDoEntries.Count > 0)
+    {
+        @foreach (var item in Model.ToDoEntries)
+        {
+            <div class="my-card">
+                <div class="title-bar">
+                    <h2>@item.Title</h2>
+                </div>
+                <div class="description-bar">
+                    <p>@item.Description</p>
+                </div>
+                <div class="due-date-bar">
+                    <p>DueDate: @DateFormatting.FormatDate(item.DueDate)</p>
+                </div>
+                <div class="progress-bar-in-card">
+                    <h6>
+                        @FormatStatus.GetTextFormattedStatus(item.Progress) &nbsp;
+                                <a asp-controller="ToDoEntry"
+                                   asp-action="ChangeProgressStatus"
+                                   asp-route-toDoEntryId="@item.Id"
+                                   asp-route-toDoListId="@ViewBag.ToDoListId">
+                                     <i class="fa-regular fa-pen-to-square" style="cursor:pointer"></i>
+                                </a>
+                    </h6>
+                </div>
+                <div class="button-item-bar">
+                    <a asp-action="Edit" asp-route-id="@item.Id" asp-route-tdlId="@ViewBag.ToDoListId" class="btn">Edit</a>
+                    <a asp-action="Details" asp-route-Id="@item.Id" asp-route-tdlId="@ViewBag.ToDoListId" class="btn">Details</a>
+                    <form id="deleteForm" asp-controller="ToDoEntry" asp-action="Delete" asp-route-ToDoEntryId="@item.Id" method="post">
+                        <input type="hidden" name="ToDoEntryId" value="@item.Id" />
+                        <input type="hidden" name="ToDoListId" value="@ViewBag.ToDoListId" />
+                        <button type="submit" class="btn">Delete</button>
+                    </form>
+                    <a asp-controller="Notes" asp-action="Index" asp-route-toDoEntryId="@item.Id" asp-route-toDoListId="@ViewBag.ToDoListId">See Notes</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h1 class="no-items-title">You have no TODO Entry here...</h1>
+    }
+
+</div>
+    <div class="pages-buttons-wrapper">
+        <a asp-action="@ViewBag.ActionName" asp-controller="ToDoEntry" asp-route-listPage="1" asp-route-hideCompleted="@Model.hideCompleted" class="btn pagination-button">First</a>
+        @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
+        {
+            <a asp-action="@ViewBag.ActionName" asp-controller="ToDoEntry" asp-route-listPage="@i" asp-route-hideCompleted="@Model.hideCompleted" class="btn pagination-button">@i</a>
+        }
+        @if (@Model.pagingInfo.TotalPages != 0)
+        {
+            <a asp-action="@ViewBag.ActionName" asp-controller="ToDoEntry" asp-route-listPage="@Model.pagingInfo.TotalPages" asp-route-hideCompleted="@Model.hideCompleted" class="btn pagination-button">Last</a>
+        }
+        else
+        {
+            <a asp-action="@ViewBag.ActionName" asp-controller="ToDoEntry" asp-route-listPage="1" asp-route-hideCompleted="@Model.hideCompleted" class="btn pagination-button">Last</a>
+        }
+    </div>

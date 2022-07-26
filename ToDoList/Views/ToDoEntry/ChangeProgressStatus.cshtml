@@ -1,0 +1,37 @@
+﻿@model ToDoListInfrastructure.Models.ViewModels.ToDoEntry.ChangeProgressStatusViewModel
+
+@{
+    ViewData["Title"] = "ChangeProgressStatus";
+}
+
+<h1>Change Progress Status</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="ToDoEntry" asp-action="ChangeProgressStatus" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="ToDoEntryId" />
+                <input type="hidden" asp-for="ToDoListId" />
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="ProgressValue" class="control-label"></label>
+                    <br />
+                    <select asp-for="ProgressValue" class="select-input">
+                        <option value="@ProgressStatus.Not_Started">Not Started</option>
+                        <option value="@ProgressStatus.In_Progress">In Progress</option>
+                        <option value="@ProgressStatus.Completed">Completed</option>
+                    </select>
+                    <span asp-validation-for="ProgressValue" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Edit Status" class="btn my-button-class" style="width: 130px;" />
+                <a asp-controller="ToDoEntry" asp-action="Index" asp-route-Id="@ViewBag.ToDoListId" class="btn my-button-class" style="width: 130px;">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

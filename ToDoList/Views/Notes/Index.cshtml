@@ -1,0 +1,49 @@
+﻿@model ToDoListInfrastructure.Models.ViewModels.Notes.NotesCollectionViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Notes</h1>
+
+<hr />
+
+<p>
+    <a asp-controller="Notes" asp-action="Create" class="btn my-button-class" style="width: 130px;" asp-route-tdeId="@Model.ToDoEntryId" asp-route-tdlId="@ViewBag.ToDoListId">Create New</a>
+    <a asp-controller="ToDoEntry" asp-action="Index" class="btn my-button-class" style="width: 130px;" asp-route-Id="@ViewBag.ToDoListId">Back to List</a>
+</p>
+
+<br />
+
+<div class="notes-cards-wrapper">
+    @foreach (var item in Model.Notes)
+    {
+        <div class="note">
+            <p>@item.Note</p>
+            <form style="float: right;" asp-controller="Notes" asp-action="Delete" method="post">
+                <input type="hidden" name="NoteId" value="@item.Id" />
+                <input type="hidden" name="ToDoEntryId" value="@Model.ToDoEntryId" />
+                <input type="hidden" name="ToDoListId" value="@ViewBag.ToDoListId"/>
+                <button type="submit">Delete X</button>
+            </form>
+        </div>
+    }
+</div>
+
+<br />
+
+<div class="pages-buttons-wrapper">
+    <a asp-action="@ViewBag.ActionName" asp-controller="Notes" asp-route-listPage="1" asp-route-toDoEntryId="@Model.ToDoEntryId" asp-route-toDoListId="@ViewBag.ToDoListId" class="btn pagination-button">First</a>
+    @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+    {
+        <a asp-action="@ViewBag.ActionName" asp-controller="Notes" asp-route-listPage="@i" asp-route-toDoEntryId="@Model.ToDoEntryId" asp-route-toDoListId="@ViewBag.ToDoListId" class="btn pagination-button">@i</a>
+    }
+    @if (Model.PagingInfo.TotalPages != 0)
+    {
+        <a asp-action="@ViewBag.ActionName" asp-controller="Notes" asp-route-listPage="@Model.PagingInfo.TotalPages" asp-route-toDoEntryId="@Model.ToDoEntryId" asp-route-toDoListId="@ViewBag.ToDoListId" class="btn pagination-button">Last</a>
+    }
+    else
+    {
+        <a asp-action="@ViewBag.ActionName" asp-controller="Notes" asp-route-listPage="1" asp-route-toDoEntryId="@Model.ToDoEntryId" asp-route-toDoListId="@ViewBag.ToDoListId" class="btn pagination-button">Last</a>
+    }
+</div>

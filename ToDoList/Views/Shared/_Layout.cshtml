@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <title>@ViewData["Title"] - ToDoList</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="https://kit.fontawesome.com/384f58f878.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="nav-menu">
+            <div class="display-horizontal mobile-menu-bar">
+                @*MENU MOBILE BAR ICON*@
+                <i class="fa-solid fa-bars mobile small-icon c-pointer" id="open-mobile-nav-links"></i>
+                @*MENU MOBILE BAR ICON*@
+            <div class="mobile circle-nav-button color-Theme-Dark-Blue hidden" id="open-mobile-nav-links-circle">
+                <i class="fa-solid fa-bars mobile small-icon color-dark-blue c-pointer"></i>
+            </div>
+                <div class="display-horizontal">
+                    <a asp-controller="Home" asp-action="Index" class="menu-bar-title">
+                       TODO List
+                    </a>
+                </div>
+                <div class="desktop-nav-items-wrapper desktop">
+                    @*Navlinks for desktop*@
+                    <ul class="desktop-items-menu desktop">
+                        <li>
+                            <a asp-controller="Home" asp-action="Index">Main Page</a>
+                        </li>
+                        <li>
+                            <a asp-controller="ToDoList" asp-action="Index">My Lists</a>
+                        </li>
+                        <li>
+                            <a asp-controller="ToDoEntry" asp-action="ReadItemsToday">Today's tasks</a>
+                        </li>
+                    </ul>
+                   
+                </div>
+                @*LOGIN/REGISTER ICON*@
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <script src="~/js/Shared/runReminder.js"></script>
+
+
+                    <form id="logout" asp-controller="Account" asp-action="Logout" method="post">
+                        <a id="logoutButton" href="javascript: $('#logout').submit()" class=" transparent-button">
+                            <i class="fa-solid fa-user-large-slash small-icon"></i>
+                        </a>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login"
+                            class=" transparent-button">
+                                    <i class="fa-solid fa-user-group small-icon"></i>
+                    </a>
+                }
+                @*LOGIN/REGISTER ICON*@
+            </div>
+            <div class="mobile-nav-links-bg theme-transition" id="mobile-nav-links-background">
+                <div class="cross-button-navlinks-bar">
+                    @*CLOSE MOBILE MENU ICON (CROSS)*@
+                    <i class="fa-solid fa-xmark mobile small-icon c-pointer" id="close-mobile-nav-links"></i>
+                    @*CLOSE MOBILE MENU ICON (CROSS)*@
+                </div>
+                <ul class="mobile-nav-links">
+                    <li class="mobile-nav-links-size nav-links-border">
+                        <a asp-controller="Home" asp-action="Index">Main Page</a>
+                    </li>
+                    <li class="mobile-nav-links-size nav-links-border">
+                        <a asp-controller="ToDoList" asp-action="Index">My Lists</a>
+                    </li>
+                    <li class="mobile-nav-links-size display-horizontal nav-links-border" id="subMenu1-nav-link">
+                        My Tasks
+                        <i class="fa-solid fa-angle-down theme-transition" id="subMenu1-nav-link-arrow"></i>
+                    </li>
+                    <li>
+                        <ul class="hidden theme-transition" id="hidden-links-subMenu1">
+                            <li class="mobile-nav-links-size nav-links-border">
+                                <a asp-controller="ToDoEntry" asp-action="ReadItemsToday">Today's tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container navMargin min-body-height">
+        <main role="main" class="pb-3" style="padding-top: 20px;">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer-wrapper">
+          <p>Created by Krzysztof Borejko for Epam - 2022</p>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Shared/nav.js" asp-append-version="true"></script>
+    <script src="~/js/Shared/stopReminder.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

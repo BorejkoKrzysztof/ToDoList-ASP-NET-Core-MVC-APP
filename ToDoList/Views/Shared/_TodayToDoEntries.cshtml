@@ -1,0 +1,35 @@
+﻿@inject ToDoListInfrastructure.Models.ProgressStatusFormatingService Format
+@inject ToDoListInfrastructure.Models.DateFormattingService DateFormatting
+
+@model ToDoListInfrastructure.Models.ViewModels.ToDoEntry.ToDoEntryCollectionViewModel
+
+<div style="display: flex; justify-content: space-evenly; flex-flow: row wrap; margin-top: 5vh; margin-bottom: 5vh">
+    @if(@Model.ToDoEntries.Count > 0) {
+        foreach (var item in Model.ToDoEntries)
+        {
+            <div class="card my-border-card" style="width: 18rem;">
+                  <div class="card-header">
+                    @item.Title
+                  </div>
+                  <ul class="list-group list-group-flush">
+                        <li class="list-group-item" style="height: 70px;">@item.Description</li>
+                        <li class="list-group-item">DueDate: @DateFormatting.FormatDate(item.DueDate)</li>
+                        <li class="list-group-item" style="display: flex; justify-content: space-between">Progress: @Format.GetTextFormattedStatus(item.Progress)
+                            @if (item.Progress != ProgressStatus.Completed)
+                            {
+                                <form asp-controller="ToDoEntry" asp-action="Complete" method="post">
+                                    <input type="hidden" name="id" value="@item.Id"/>
+                                    <button type="submit" style="background-color: white; border:none;">
+                                        <i class="fa-solid fa-check" style="color: green; font-size: 18px;"></i>
+                                    </button>
+                                </form>
+                            }
+                        </li>
+                  </ul>
+            </div>
+        }
+}
+else{
+    <h1 class="no-items-title">You have no tasks today...</h1>
+}
+</div>

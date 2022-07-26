@@ -1,0 +1,32 @@
+﻿@model ToDoListInfrastructure.Models.ViewModels.ToDoEntry.ToDoEntryCollectionViewModel
+
+@{
+    ViewData["Title"] = "Today's tasks";
+}
+
+<div id="ToDoEntriesContent">
+    <h1>Today's tasks</h1>
+    @await Html.PartialAsync("_TodayToDoEntries", Model);
+
+
+    <div class="pages-buttons-wrapper">
+        <a asp-action="ReadItemsToday" asp-controller="ToDoEntry" asp-route-listPage="1" class="btn pagination-button">First</a>
+        @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
+        {
+            <a asp-action="ReadItemsToday" asp-controller="ToDoEntry" asp-route-listPage="@i" class="btn pagination-button">@i</a>
+        }
+        @if (@Model.pagingInfo.TotalPages != 0)
+        {
+            <a asp-action="ReadItemsToday" asp-controller="ToDoEntry" asp-route-listPage="@Model.pagingInfo.TotalPages" class="btn pagination-button">Last</a>
+        }
+        else
+        {
+            <a asp-action="ReadItemsToday" asp-controller="ToDoEntry" asp-route-listPage="1" class="btn pagination-button">Last</a>
+        }
+    </div>
+
+</div>
+
+            @section Scripts{
+                    <script src="~/js/ToDoEntry/partialRenderingToday.js"></script>
+            }

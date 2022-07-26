@@ -1,0 +1,54 @@
+﻿@inject ToDoListInfrastructure.Models.ProgressStatusFormatingService Format
+@model ToDoListInfrastructure.DTOs.ToDoEntryDetailsDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Progress)
+        </dt>
+        <dd class = "col-sm-10">
+            @Format.GetTextFormattedStatus(Model.Progress)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-controller="ToDoEntry" asp-route-id="@Model.Id" asp-route-tdlId="@ViewBag.ToDoListId" class="btn my-button-class">Edit</a>
+    <a asp-controller="ToDoEntry" asp-action="Index" asp-route-Id="@ViewBag.ToDoListId" class="btn my-button-class" style="width: 130px">Back to List</a>
+</div>

@@ -1,0 +1,46 @@
+﻿@model ToDoListInfrastructure.Models.ViewModels.ToDoEntry.ToDoEntryCollectionViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="ToDoEntriesCardsContent">
+    <h1>ToDo Entries</h1>
+    <div style="display: flex; align-items: center;">
+
+            <p>
+                <a asp-controller="ToDoEntry" asp-action="Create" asp-route-toDoListId="@ViewBag.ToDoListId" 
+                                                                class="btn my-button-class" style="width: 100px;">Create New</a>
+
+            <p style="text-align: center">
+                    <label style="font-size: 24px;">&nbsp; Show Completed Items: &nbsp;
+                    @if (@Model.hideCompleted)
+                    {
+                        <a asp-controller="ToDoEntry" 
+                                asp-action="Index" 
+                                asp-route-listPage="@Model.pagingInfo.CurrentPage"
+                                asp-route-hideCompleted="@false"
+                                style="color:blue; cursor: pointer; font-size:32px"><i class="fa-regular fa-square-check"></i></a>
+                    }
+                    else
+                    {
+                        <a asp-controller="ToDoEntry" 
+                                asp-action="Index" 
+                                asp-route-listPage="@Model.pagingInfo.CurrentPage"
+                                asp-route-hideCompleted="@true"
+                                style="color:blue; cursor: pointer; font-size:32px"><i class="fa-solid fa-square-check"></i></a>
+                    }
+                    </label>
+            </p>
+    </div>
+    <div id="ToDoEntriesContent">
+            @await Component.InvokeAsync("ToDoEntryCards", new { 
+                model = @Model,
+                actionName = "Index"
+            })
+    </div>
+</div>
+
+        @section Scripts{
+            <script src="~/js//ToDoEntry/partialRenderingCards.js"></script>
+        }

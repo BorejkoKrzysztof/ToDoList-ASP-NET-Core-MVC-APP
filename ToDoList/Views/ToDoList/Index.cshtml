@@ -1,0 +1,37 @@
+﻿@model ToDoListInfrastructure.Models.ViewModels.ToDoList.ToDoListCollectionViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="ToDoListTable">
+    <div class="main-view-buttons-container">
+            <h1 style="margin-right: 10px">Your TODO Lists</h1>
+        <p>
+            <a class="btn my-button-class big-button" asp-action="Create">Create New</a>
+            @if (ViewBag.ActionNameTagLink == "Index")
+            {
+                <a class="btn my-button-class big-button" asp-action="HiddenList">Show hidden</a>
+            }
+            else
+            {
+                <a class="btn my-button-class big-button" asp-action="Index">Show visible</a>
+            }
+        </p>
+    </div>
+
+
+    <partial name="_ToDoListTable" model="@Model.ToDoListCollection" />
+
+     <div id="PagesLinks" style="float: right;">
+           <div page-model="@Model.PagingInfo" page-action="@ViewBag.ActionNameTagLink" page-classes-enabled="true"
+               wrapper-class="pages-buttons-wrapper" page-class="btn" page-class-normal="btn pagination-button"
+               page-class-selected="btn-primary"
+               class="btn-group pull-right m-1">
+          </div>
+     </div>
+</div>
+
+    @section Scripts{
+        <script src="~/js/ToDoList/partialRendering.js"></script>
+    }

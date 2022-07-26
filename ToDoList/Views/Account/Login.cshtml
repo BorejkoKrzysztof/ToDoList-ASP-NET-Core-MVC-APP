@@ -1,0 +1,38 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    var returnUrl = Context.Request.Query["returnUrl"];
+}
+
+<h1>Login</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@returnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control my-text-input" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control my-text-input" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn my-button-class" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index" class="btn my-button-class" style="width: 130px;">Back to Home</a>
+    <a asp-controller="Account" asp-action="Register" class="btn my-button-class" style="width: 90px;">Register</a>
+</div>
+
