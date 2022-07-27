@@ -151,15 +151,21 @@ namespace ToDoListInfrastructure.Models.Repositories
             currentUserID.CheckExceptions();
             currentUserID.IsStringRepresentationOfGuid();
 
-            return this.dbContext.ToDoEntries.Where(x => x.ToDoList.AccountId == currentUserID
-                                                                                && x.DueDate > DateTime.Now)
-                                                .OrderBy(x => x.DueDate)
-                                                .Select(x => new ToDoEntryReminderDto()
-                                                {
-                                                    ToDoEntryDueDate = x.DueDate,
-                                                    ToDoEntryTitle = x.Title
-                                                })
-                                                .FirstOrDefault()!;
+            var toDoEntry = this.dbContext.ToDoEntries.Where(x => x.ToDoList.AccountId == currentUserID
+                                                                                && DateTime.Compare(x.DueDate, DateTime.Now) > 0 )
+                                                                                .OrderBy(x => x.DueDate)
+                                                                                .FirstOrDefault()!;
+
+            if (toDoEntry is null)
+            {
+                return null!;
+            }
+
+            return new ToDoEntryReminderDto()
+            {
+                ToDoEntryDueDate = toDoEntry.DueDate,
+                ToDoEntryTitle = toDoEntry.Title
+            };
         }
 
         public void AddRangeToDoEntries(List<ToDoEntry> toDoEntriesToCopy)

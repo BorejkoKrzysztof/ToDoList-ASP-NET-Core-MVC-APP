@@ -28,10 +28,10 @@ namespace ToDoListCore.Domain_Models
         public DateTime DueDate { get; set; }
 
         [Required]
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public DateTime CreationDate { get; set; }
 
         [Required]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; }
 
         [Required]
         public ProgressStatus Progress { get; set; } = ProgressStatus.Not_Started;

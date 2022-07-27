@@ -9,7 +9,7 @@ function RunReminder() {
         MakeReminderRequest()
     }
 
-    window.setInterval(CompareTime, 30000)
+    window.setInterval(CompareTime, 25000)
 
 }
 
@@ -28,6 +28,7 @@ function MakeReminderRequest() {
         const reminderInfo = JSON.parse(xhttp.response)
 
         if (reminderInfo.value !== null) {
+            console.log(reminderInfo.value.toDoEntryTitle)
             SetItemsInSessionStorage(reminderInfo)
         }
         else {
@@ -57,16 +58,16 @@ function CompareTime() {
 
     const dueDate = new Date(sessionStorage.getItem('dateRmr'))
 
+    const now = new Date()
 
-    var remaining = Math.abs(dueDate.getTime() - new Date().getTime())
-
-
-    if (dueDate.getMinutes() === new Date().getMinutes()) {
-        MakeReminderRequest()
+    if ((now.getHours() == dueDate.getHours() && dueDate.getMinutes() === now.getMinutes()) || dueDate.getTime() < now.getTime()) {
         sessionStorage.setItem('5mIsReminded', 'false')
         sessionStorage.setItem('30mIsReminded', 'false')
+        MakeReminderRequest()
         return
     }
+
+    var remaining = Math.abs(dueDate.getTime() - new Date().getTime())
 
     if (sessionStorage.getItem('5mIsReminded') == 'false') {
         if (remaining <= 5 * 60 * 1000) {
@@ -76,7 +77,7 @@ function CompareTime() {
         }
     }
 
-    if (sessionStorage.getItem('30mIsReminded') == 'false') {
+    if (sessionStorage.getItem('30mIsReminded') == 'false' && sessionStorage.getItem('5mIsReminded') == 'false') {
         if (remaining <= 30 * 60 * 1000) {
             DisplayAlert(30)
             sessionStorage.setItem('30mIsReminded', 'true')

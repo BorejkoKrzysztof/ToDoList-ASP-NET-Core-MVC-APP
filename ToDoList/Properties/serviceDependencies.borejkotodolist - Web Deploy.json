@@ -2,14 +2,14 @@
   "dependencies": {
     "mssql2": {
       "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/todolistborejko/databases/identity",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/todolistborejkosqlserver/databases/identity",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:identityConnectionString",
       "dynamicId": null
     },
     "mssql1": {
       "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/todolistborejko/databases/domain",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/todolistborejkosqlserver/databases/domain",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:defaultConnectionString",
       "dynamicId": null
