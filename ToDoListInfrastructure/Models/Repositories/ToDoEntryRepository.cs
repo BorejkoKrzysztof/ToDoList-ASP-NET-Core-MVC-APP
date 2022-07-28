@@ -77,6 +77,7 @@ namespace ToDoListInfrastructure.Models.Repositories
             this.dbContext.ToDoEntries.Remove(toDoEntryToRemove);
             this.dbContext.SaveChanges();
         }
+
         public IEnumerable<ToDoEntry> ReadAllToDoEntriesByToDoListId(Guid id)
         {
             id.CheckExceptions();

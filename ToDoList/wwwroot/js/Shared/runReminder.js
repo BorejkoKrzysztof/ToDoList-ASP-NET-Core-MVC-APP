@@ -9,10 +9,12 @@ function RunReminder() {
         MakeReminderRequest()
     }
 
+    // run comparing toDoEntry duedate every 25 seconds.
     window.setInterval(CompareTime, 25000)
-
 }
 
+
+// Prepare request for reminder
 function MakeReminderRequest() {
 
     var getUrl = window.location;

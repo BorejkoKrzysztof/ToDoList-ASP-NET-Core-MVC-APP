@@ -66,6 +66,11 @@ namespace ToDoListInfrastructure.Models.Repositories
                                                     .AsEnumerable();
         }
 
+        /// <summary>
+        /// Count notes in toDoEntry.
+        /// </summary>
+        /// <param name="toDoEntryId">ToDoEntry id</param>
+        /// <returns>Amount of notes in todoentry.</returns>
         public int CountNotes(Guid toDoEntryId)
         {
             toDoEntryId.CheckExceptions();

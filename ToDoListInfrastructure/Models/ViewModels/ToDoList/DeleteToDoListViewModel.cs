@@ -8,6 +8,7 @@ namespace ToDoListInfrastructure.Models.ViewModels.ToDoList
 {
     public class DeleteToDoListViewModel
     {
+        // ToDoList Id
         public Guid Id { get; set; }
     }
 }

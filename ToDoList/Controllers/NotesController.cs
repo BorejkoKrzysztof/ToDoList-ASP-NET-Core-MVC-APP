@@ -15,7 +15,7 @@ namespace ToDoList.Controllers
             this.service = service ?? throw new ArgumentNullException(nameof(service), "Given service is null.");
         }
 
-        // GET: NotesController
+        
         public ActionResult Index(Guid toDoEntryId, Guid toDoListId, int listPage = 1)
         {
             ViewBag.ToDoListId = toDoListId;
@@ -24,7 +24,7 @@ namespace ToDoList.Controllers
             return View(model);
         }
 
-        // GET: NotesController/Create
+        
         public IActionResult Create(Guid tdeId, Guid tdlId)
         {
             ViewBag.ToDoEntryId = tdeId;
@@ -33,7 +33,7 @@ namespace ToDoList.Controllers
             return View();
         }
 
-        // POST: NotesController/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateNotesViewModel model)
@@ -48,7 +48,7 @@ namespace ToDoList.Controllers
             return RedirectToAction("Index", "Notes", new { toDoEntryId = model.ToDoEntryId, toDoListId = model.ToDoListId });
         }
 
-        // POST: NotesController/Delete/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(DeleteNotesViewModel model)

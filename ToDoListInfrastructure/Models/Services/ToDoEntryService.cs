@@ -149,6 +149,7 @@ namespace ToDoListInfrastructure.Models.Services
             this.toDoEntryRepository.DeleteToDoEntry(toDoEntryToRemove);
         }
 
+        // Change progress of todoentry
         public void ChangeProgressValue(ChangeProgressStatusViewModel model)
         {
             if (model is null)
@@ -202,6 +203,10 @@ namespace ToDoListInfrastructure.Models.Services
             return toDoEntryInfoForReminder;
         }
 
+        /// <summary>
+        /// Change progress of todoentry for Completed
+        /// </summary>
+        /// <param name="id">ToDoEntry Id.</param>
         public void CompleteToDoEntry(Guid id)
         {
             id.CheckExceptions();

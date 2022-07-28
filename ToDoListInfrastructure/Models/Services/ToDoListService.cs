@@ -117,6 +117,10 @@ namespace ToDoListInfrastructure.Models.Services
             this.toDoListRepository.DeleteToDoList(toDoListToRemove);
         }
 
+        /// <summary>
+        /// Copy ToDoList.
+        /// </summary>
+        /// <param name="id">ToDoList Id.</param>
         public void CopyToDoList(Guid id)
         {
             id.CheckExceptions();
@@ -167,6 +171,10 @@ namespace ToDoListInfrastructure.Models.Services
             }
         }
 
+        /// <summary>
+        /// Show or hide ToDoList
+        /// </summary>
+        /// <param name="id">ToDoList Id</param>
         public void SwitchHideToDoList(Guid id)
         {
             id.CheckExceptions();

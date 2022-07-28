@@ -11,7 +11,7 @@ namespace ToDoListInfrastructure.Extensions
     public static class ExceptionExtensions
     {
 
-
+        // check exceptions in ToDoList
         public static void CheckExceptions(this ToDoList toDoList)
         {
             if (toDoList is null)
@@ -23,6 +23,7 @@ namespace ToDoListInfrastructure.Extensions
             toDoList.Title.CheckExceptions();
         }
 
+        // Check if ToDoEntry is null
         public static void CheckExceptions(this ToDoEntry toDoEntry)
         {
             if (toDoEntry is null)
@@ -31,6 +32,7 @@ namespace ToDoListInfrastructure.Extensions
             }
         }
 
+        // Check if note is null
         public static void CheckExceptions(this NotesTde note)
         {
             if (note is null)
@@ -39,6 +41,7 @@ namespace ToDoListInfrastructure.Extensions
             }
         }
 
+        // Check if string is null or empty.
         public static void CheckExceptions(this string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -47,6 +50,7 @@ namespace ToDoListInfrastructure.Extensions
             }
         }
 
+        // Check if Guid is guid empty.
         public static void CheckExceptions(this Guid guid)
         {
             if (guid == Guid.Empty)
@@ -55,6 +59,7 @@ namespace ToDoListInfrastructure.Extensions
             }
         }
 
+        // Check if string length is less than given max length 
         public static void CheckMaxLengthExceptions(this string text, int maxCharacters)
         {
             if (text.Length > maxCharacters)
@@ -64,6 +69,7 @@ namespace ToDoListInfrastructure.Extensions
         }
 
 
+        // Chechk boundary conditions for datetime.
         public static void ValidateEdgeDateTime(this DateTime givenDateTime)
         {
             if (DateTime.Compare(givenDateTime, DateTime.MinValue) == 0 || DateTime.Compare(givenDateTime, DateTime.MaxValue) == 0)
@@ -72,6 +78,7 @@ namespace ToDoListInfrastructure.Extensions
             }
         }
 
+        // Check if given progress is the one of three cases.
         public static void ValidateProgressStatus(this ProgressStatus status)
         {
             if ((int)status < 0 || (int)status > 2)
@@ -80,6 +87,7 @@ namespace ToDoListInfrastructure.Extensions
             }
         }
 
+        // Check if given datetime is later than now.
         public static void DateTimeValidatorLaterThanNow(this DateTime dateTime)
         {
             if (DateTime.Compare(dateTime, DateTime.Now) < 0)
@@ -88,6 +96,7 @@ namespace ToDoListInfrastructure.Extensions
             }
         }
 
+        // Check guid given as a sring value.
         public static void IsStringRepresentationOfGuid(this string guidId)
         {
             Guid guid;

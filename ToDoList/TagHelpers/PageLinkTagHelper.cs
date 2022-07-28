@@ -7,12 +7,20 @@ using ToDoListInfrastructure.Models.ViewModels;
 
 namespace ToDoList.TagHelpers
 {
+    /// <summary>
+    /// Tag helper with links for pages.
+    /// </summary>
     [HtmlTargetElement("div", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
     {
         private readonly IUrlHelperFactory _urlHelperFactory;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        /// <summary>
+        /// Initializes settings for PageLinkTagHelper.
+        /// </summary>
+        /// <param name="helperFactory">Instance of IUrlHelperFactory.</param>
+        /// <exception cref="ArgumentNullException">Throws if helper factory is null.</exception>
         public PageLinkTagHelper(IUrlHelperFactory helperFactory)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
@@ -23,6 +31,7 @@ namespace ToDoList.TagHelpers
         public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
 
 
+        // store informations about context web project state.
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
@@ -40,6 +49,11 @@ namespace ToDoList.TagHelpers
         public string PageClassNormal { get; set; }
 
 
+        /// <summary>
+        /// Create new Tag Helper.
+        /// </summary>
+        /// <param name="context">Instance of TagHelperContext.</param>
+        /// <param name="output">Instance of TagHelperOutput.</param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (context == null)

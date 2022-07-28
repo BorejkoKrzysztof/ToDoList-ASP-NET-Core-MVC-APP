@@ -21,7 +21,13 @@ namespace ToDoList.Controllers
             this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager), "Given manager is null.");
         }
 
-        // GET: ToDoEntryController
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <param name="Id">ToDoListId.</param>
+        /// <param name="listPage">Number of page.</param>
+        /// <param name="hideCompleted">True, if you don't want to see hidden toDoEntries</param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Index(Guid Id, int listPage = 1, bool hideCompleted = true)
         {
@@ -36,7 +42,12 @@ namespace ToDoList.Controllers
             return View(toDoEntriesCollection);
         }
 
-        // GET: ToDoEntryController/Details/5
+        /// <summary>
+        /// Details of toDoEntry
+        /// </summary>
+        /// <param name="Id">ToDoEntry Id</param>
+        /// <param name="tdlId">ToDoList Id</param>
+        /// <returns></returns>
         public IActionResult Details(Guid Id, Guid tdlId)
         {
             var toDoEntryDetails = this.service.ReadToDoEntry(Id);
@@ -45,14 +56,14 @@ namespace ToDoList.Controllers
             return View(toDoEntryDetails);
         }
 
-        // GET: ToDoEntryController/Create
+
         public IActionResult Create(Guid toDoListId)
         {
             ViewBag.ToDoListId = toDoListId;
             return View();
         }
 
-        // POST: ToDoEntryController/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateToDoEntryViewModel model)
@@ -67,7 +78,12 @@ namespace ToDoList.Controllers
             return RedirectToAction("Details", "ToDoEntry", new { id = createdToDoEntry.Id, tdlId = model.ToDoListId });
         }
 
-        // GET: ToDoEntryController/Edit/5
+        /// <summary>
+        /// Edit ToDoEntry
+        /// </summary>
+        /// <param name="id">ToDoEntry Id</param>
+        /// <param name="tdlId">ToDoList Id</param>
+        /// <returns></returns>
         public IActionResult Edit(Guid id, Guid tdlId)
         {
             ViewBag.ToDoEntryId = id;
@@ -76,8 +92,6 @@ namespace ToDoList.Controllers
         }
 
 
-
-        // POST: ToDoEntryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(EditToDoEntryViewModel model)
@@ -92,13 +106,17 @@ namespace ToDoList.Controllers
             return RedirectToAction("Details", "ToDoEntry", new { id = editedToDoEntry.Id, tdlId=model.ToDoListId });
         }
 
-        // GET: ToDoEntryController/Delete/5
+        /// <summary>
+        /// Delete ToDoEntry
+        /// </summary>
+        /// <param name="id">ToDoEntry Id</param>
+        /// <returns></returns>
         public IActionResult Delete(Guid id)
         {
             return View();
         }
 
-        // POST: ToDoEntryController/Delete/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(DeleteToDoEntryViewModel model)
@@ -114,6 +132,7 @@ namespace ToDoList.Controllers
             return RedirectToAction("Index", "ToDoEntry", new { id = model.ToDoListId });
         }
 
+        
         public IActionResult ChangeProgressStatus(Guid toDoEntryId, Guid toDoListId)
         {
             ViewBag.ToDoEntryId = toDoEntryId;
@@ -150,6 +169,12 @@ namespace ToDoList.Controllers
             return View(itemsDueToday);
         }
 
+
+        /// <summary>
+        /// Set Progres of todoentry to completed.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public IActionResult Complete(Guid id)
@@ -160,6 +185,10 @@ namespace ToDoList.Controllers
             return RedirectToAction("ReadItemsToday", "ToDoEntry");
         }
 
+        /// <summary>
+        /// Reminder Action.
+        /// </summary>
+        /// <returns>Title and DueDate of ToDoEntry as a ToDoEntryReminderDto.</returns>
         [Authorize]
         [HttpPost]
         public JsonResult Reminder()

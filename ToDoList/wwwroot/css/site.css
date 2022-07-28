@@ -217,7 +217,6 @@ nav ul {
     width: 70px;
     margin-bottom: 2px;
     margin-right: 4px;
-    /*font-size: 14px;*/
 }
 
 .my-button-class:hover {
@@ -251,7 +250,6 @@ nav ul {
 .description-bar {
     height: 30%;
     border-bottom: solid 2px black;
-    /*padding: auto;*/
     display: flex;
     justify-content: center;
     align-items: center;

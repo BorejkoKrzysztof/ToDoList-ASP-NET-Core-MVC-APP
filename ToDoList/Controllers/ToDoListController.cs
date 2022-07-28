@@ -8,7 +8,6 @@ using ToDoListInfrastructure.Models.ViewModels.ToDoList;
 
 namespace ToDoList.Controllers
 {
-    //[Route("todolist")]
     public class ToDoListController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
@@ -21,8 +20,12 @@ namespace ToDoList.Controllers
             this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager), "Given userManager is null.");
             this.service = service ?? throw new ArgumentNullException(nameof(service), "Given service is null.");
         }
-        // GET: ToDoListController
-
+        
+        /// <summary>
+        /// Index Page with table of todolists.
+        /// </summary>
+        /// <param name="listPage">Number of page.</param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Index(int listPage = 1)
         {
@@ -38,6 +41,11 @@ namespace ToDoList.Controllers
             return View(toDoListsCollection);
         }
 
+        /// <summary>
+        /// Index Page with table of todolists with hidden items.
+        /// </summary>
+        /// <param name="listPage">Number of page.</param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult HiddenList(int listPage = 1)
         {
@@ -71,14 +79,17 @@ namespace ToDoList.Controllers
             return RedirectToAction("Index", "ToDoList");
         }
 
-        // GET: ToDoListController/Edit/5
+        /// <summary>
+        /// Edit ToDoList.
+        /// </summary>
+        /// <param name="id">ToDoList Id</param>
+        /// <returns></returns>
         public IActionResult Edit(Guid id)
         {
             ViewBag.SelectedIdToEdit = id;
             return View();
         }
 
-        // POST: ToDoListController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(UpdateToDoListViewModel model)
@@ -107,14 +118,18 @@ namespace ToDoList.Controllers
             return RedirectToAction("Index", "ToDoList");
         }
 
-        // GET: ToDoListController/Delete/5
+        /// <summary>
+        /// Delete ToDoList.
+        /// </summary>
+        /// <param name="id">ToDoList id</param>
+        /// <returns></returns>
         public IActionResult Delete(Guid id)
         {
             ViewBag.SelectedIdToDelete = id;
             return View();
         }
 
-        // POST: ToDoListController/Delete/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(DeleteToDoListViewModel model)
@@ -129,6 +144,11 @@ namespace ToDoList.Controllers
             return RedirectToAction("Index", "ToDoList");
         }
 
+        /// <summary>
+        /// Copy ToDoList Action.
+        /// </summary>
+        /// <param name="model">Model with ToDoList Id.</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Copy(CopyToDoListViewModel model)

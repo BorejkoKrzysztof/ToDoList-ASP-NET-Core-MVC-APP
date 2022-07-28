@@ -78,6 +78,12 @@ namespace ToDoListInfrastructure.Models.Repositories
             this.dbContext.SaveChanges();
         }
 
+        /// check how much copies of similar todolist exists.<summary>
+        /// 
+        /// </summary>
+        /// <param name="toDoListTitle">toDoList title</param>
+        /// <param name="accountId">user account id.</param>
+        /// <returns></returns>
         public int CountNumberOfCopiesForToDoList(string toDoListTitle, string accountId)
         {
             toDoListTitle.CheckExceptions();

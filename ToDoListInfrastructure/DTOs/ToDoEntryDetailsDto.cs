@@ -13,6 +13,7 @@ namespace ToDoListInfrastructure.DTOs
     {
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        // todoentry Id
         public Guid Id { get; set; }
         public string ToDoListTitle { get; set; }
 
